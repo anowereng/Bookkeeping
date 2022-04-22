@@ -29,7 +29,6 @@ export class ReconciliationPageComponent implements OnInit {
   }
 
   getReconcilition(){
-    // this.spinnerService.show();
     this.loading =  true;
     var model = this.getNewModel();
 
@@ -57,149 +56,9 @@ export class ReconciliationPageComponent implements OnInit {
     return new ReconcilitionRequestModel();
   }
 
-  getNewCashFlowIncomeLogsModel(): CashFlowLogsViewModel[] {
-    let logs : CashFlowLogsViewModel[] = [
-      {
-      CashFlowId : 1 ,
-      CashFlowName : 'Income',
-      month: {
-              jan : 12,
-              feb : 12,
-              mar : 0 ,
-              apr : 0 ,
-              may : 0 ,
-              jun : 0 ,
-              jul : 0 ,
-              aug : 0 ,
-              sep : 0 ,
-              oct : 0 ,
-              nov : 0 ,
-              dec : 0
-      },
-      logId: 1,
-      typeId: 1,
-      typeName: 'Type1'
-      },
-        {
-          CashFlowId : 1 ,
-          CashFlowName : 'Income',
-          month: {
-                  jan : 12,
-                  feb : 12,
-                  mar : 0 ,
-                  apr : 10 ,
-                  may : 18 ,
-                  jun : 0 ,
-                  jul : 0 ,
-                  aug : 0 ,
-                  sep : 18 ,
-                  oct : 0 ,
-                  nov : 0 ,
-                  dec : 0
-          },
-          logId: 1,
-          typeId: 1,
-          typeName: 'Type2'
-        },
-          {
-            CashFlowId : 1 ,
-            CashFlowName : 'Income',
-            month: {
-                    jan : 12,
-                    feb : 12,
-                    mar : 0 ,
-                    apr : 10 ,
-                    may : 18 ,
-                    jun : 0 ,
-                    jul : 0 ,
-                    aug : 0 ,
-                    sep : 18 ,
-                    oct : 0 ,
-                    nov : 0 ,
-                    dec : 0
-            },
-            logId: 1,
-            typeId: 1,
-            typeName: 'Type3'
-        },
-  ]
-  return logs
-  }
-
-  getNewCashFlowCostLogsModel(): CashFlowLogsViewModel[] {
-    let logs : CashFlowLogsViewModel[] = [
-      {
-      CashFlowId : 1 ,
-      CashFlowName : 'Expense',
-      month: {
-              jan : 12,
-              feb : 12,
-              mar : 0 ,
-              apr : 0 ,
-              may : 0 ,
-              jun : 0 ,
-              jul : 0 ,
-              aug : 0 ,
-              sep : 0 ,
-              oct : 0 ,
-              nov : 0 ,
-              dec : 0
-      },
-      logId: 1,
-      typeId: 1,
-      typeName: 'Type1'
-      },
-        {
-          CashFlowId : 1 ,
-          CashFlowName : 'Expense',
-          month: {
-                  jan : 12,
-                  feb : 12,
-                  mar : 0 ,
-                  apr : 10 ,
-                  may : 18 ,
-                  jun : 0 ,
-                  jul : 0 ,
-                  aug : 0 ,
-                  sep : 18 ,
-                  oct : 0 ,
-                  nov : 0 ,
-                  dec : 0
-          },
-          logId: 1,
-          typeId: 1,
-          typeName: 'Type2'
-        },
-          {
-            CashFlowId : 1 ,
-            CashFlowName : 'Expense',
-            month: {
-                    jan : 12,
-                    feb : 12,
-                    mar : 0 ,
-                    apr : 10 ,
-                    may : 18 ,
-                    jun : 0 ,
-                    jul : 0 ,
-                    aug : 0 ,
-                    sep : 18 ,
-                    oct : 0 ,
-                    nov : 0 ,
-                    dec : 0
-            },
-            logId: 1,
-            typeId: 1,
-            typeName: 'Type3'
-        },
-  ]
-  return logs
-  }
-
-
   incomeCashflowLogsToAddUpdateCashLog() {
 
     for (let index = 0; index < this.model.incomeCashFlowLogsData.length; index++) {
-
       const element = this.model.incomeCashFlowLogsData[index];
 
       Object.keys(element.month)
@@ -248,12 +107,14 @@ export class ReconciliationPageComponent implements OnInit {
     this.addUpdateCashFlowLogs = [];
     this.incomeCashflowLogsToAddUpdateCashLog();
     this.expenseCashflowLogsToAddUpdateCashLog();
+
     this.loading =  true;
     this.isBtnEnabled =  false;
 
     const successCallback = (response: ResponseModel): void => {
       this.loading = false;
       this.isBtnEnabled =  true;
+      this.getReconcilition();
       this.toastr.success("Updated Successfully")
     };
 

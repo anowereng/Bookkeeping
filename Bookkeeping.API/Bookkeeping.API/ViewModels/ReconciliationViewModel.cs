@@ -9,6 +9,9 @@
         public MonthValueViewModel Result { get; set; }
         public List<CashFlowLogsViewModel> IncomeCashFlowLogsData { get; set; }
         public List<CashFlowLogsViewModel> ExpenseCashFlowLogsData { get; set; }
+        public MonthValueViewModel ReconciliationResult { get; set; }
+        public MonthValueViewModel FinalResult { get; set; }
+        public MonthValueViewModel CumulativeFinalResult { get; set; }
     }
 
 

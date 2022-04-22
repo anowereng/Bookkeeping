@@ -8,3 +8,6 @@ table, th, td {
     border-collapse: collapse;
     padding: 6px;
 }
+ html{
+  font-size: 13px;
+}

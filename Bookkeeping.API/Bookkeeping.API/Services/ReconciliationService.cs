@@ -32,19 +32,16 @@ namespace Bookkeeping.API.Services
             reconciliationViewModel.Result = _reconciliationManager.IncomCostResultProcess(reconciliationViewModel.Income, reconciliationViewModel.Expense);
             reconciliationViewModel.IncomeCashFlowLogsData = await GetIncomeCashFlowTypesData(request);
             reconciliationViewModel.ExpenseCashFlowLogsData = await GetExpenseCashFlowTypesData(request);
+            reconciliationViewModel.ReconciliationResult = await GetReconciliationResult(request);
+            reconciliationViewModel.FinalResult =  GetFinalResult(reconciliationViewModel.ReconciliationResult, reconciliationViewModel.Result);
+            reconciliationViewModel.CumulativeFinalResult = _reconciliationManager.CumulativeProcess(reconciliationViewModel.FinalResult);
+
+
             return new ApiResponse { Result = reconciliationViewModel, StatusCode = (int)HttpStatusCode.OK, IsError = false };
         }
         public async Task<ApiResponse> AddUpdateCashFlowLog(List<AddUpdateCashFlowLogModel> models)
         {
-            await UpdateCashFlowLog(models);
-            await AddCashFlowLog(models);
-
-            return new ApiResponse { Result = null, Message = "Save Successfully", StatusCode = (int)HttpStatusCode.OK, IsError = false };
-        }
-        private async Task<bool> AddCashFlowLog(List<AddUpdateCashFlowLogModel> models)
-        {
-            var newItems = models.Where(x => x.LogId == 0).ToList();
-            var list = newItems.Select(x => new CashFlowLog
+            var list = models.Select(x => new CashFlowLog
             {
                 Amount = x.Amount,
                 Month = x.Month,
@@ -52,31 +49,20 @@ namespace Bookkeeping.API.Services
                 Year = x.Year
             }).ToList();
 
+            await ClearData();
             await _context.CashFlowLogs.AddRangeAsync(list);
             await _context.SaveChangesAsync();
-            return true;
+
+            return new ApiResponse { Result = null, Message = "Save Successfully", StatusCode = (int)HttpStatusCode.OK, IsError = false };
         }
-        private async Task<bool> UpdateCashFlowLog(List<AddUpdateCashFlowLogModel> models)
+
+        private async Task ClearData()
         {
-            var updateItems = models.Where(x => x.LogId != 0).ToList();
-            var selectedItems = models.Select(x => x.LogId).ToArray();
-            var dbItems = _context.CashFlowLogs.Where(x => selectedItems.Any(y => x.Id == y)).ToList();
-
-            if (!dbItems.Any())
-                return false;
-
-            foreach (var item in dbItems)
-            {
-                var updateItem = updateItems.Where(x => x.LogId == item.Id).FirstOrDefault();
-                if (updateItem != null)
-                {
-                    item.Amount = updateItem.Amount;
-                    item.Month = updateItem.Month;
-                    await _context.SaveChangesAsync();
-                }
-            }
-            return true;
+            var list = await _context.CashFlowLogs.ToListAsync();
+            _context.CashFlowLogs.RemoveRange(list);
+            await _context.SaveChangesAsync();
         }
+
         private async Task<MonthValueViewModel> GetIncomeAmount(ReconciliationRequestModel input)
         {
             var incomeModel = await _context.CashFlows.SingleOrDefaultAsync(x => x.Name == "Income");
@@ -95,6 +81,28 @@ namespace Bookkeeping.API.Services
                                              }).ToList();
 
             var result = _reconciliationManager.GetNewMonthModel(list);
+            return result;
+        }
+
+        private async Task<MonthValueViewModel> GetReconciliationResult(ReconciliationRequestModel input)
+        {
+
+            var incomeModel = await _context.CashFlows.SingleOrDefaultAsync(x => x.Name == "Income");
+
+            var incomeMonthViewModels = await _context.CashFlowLogs.Include(x => x.CashFlowType).ThenInclude(y => y.CashFlow)
+                                                      .Where(x => x.Year == input.Year)
+                                                      .ToListAsync();
+
+            var list = incomeMonthViewModels.GroupBy(x => new { Month = x.Month })
+                                  .Select(g =>
+                                   new MonthAmountViewModel
+                                   {
+                                       Month = g.Key.Month,
+                                       Amount = g.Sum(b => b.CashFlowType.CashFlow.Name == "Income" ? b.Amount : b.Amount * -1)
+                                   }).ToList();
+
+            var result = _reconciliationManager.GetNewMonthModel(list);
+
             return result;
         }
         public async Task<MonthValueViewModel> GetExpenseAmount(ReconciliationRequestModel input)
@@ -142,7 +150,27 @@ namespace Bookkeeping.API.Services
             return cashFlowLogsVewModel;
 
         }
-       
+
+        private  MonthValueViewModel GetFinalResult (MonthValueViewModel recResult, MonthValueViewModel result)
+        {
+
+            recResult.Jan += result.Jan;
+            recResult.Feb += result.Feb;
+            recResult.Mar += result.Mar;
+            recResult.Apr += result.Apr;
+            recResult.May += result.May;
+            recResult.Jun += result.Jun;
+            recResult.Jul += result.Jul;
+            recResult.Aug += result.Aug;
+            recResult.Sep += result.Sep;
+            recResult.Oct += result.Oct;
+            recResult.Nov += result.Nov;
+            recResult.Dec += result.Dec;
+
+            return recResult;
+
+        }
+
     }
 
 }

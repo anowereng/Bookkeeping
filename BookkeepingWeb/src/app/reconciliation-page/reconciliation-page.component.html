@@ -8,14 +8,14 @@
   </thead>
 
   <tr *ngIf="model.incomeCashFlowLogsData.length === 0">
-    <th [colSpan]="14" style="text-align: center;color: grey;"><small>Unable to load data</small></th>
+    <th [colSpan]="14" style="text-align: center;color: #D9D9D9;"><small>Unable to load data</small></th>
  </tr>
 
   <tbody *ngIf="model.incomeCashFlowLogsData.length !== 0">
-  <tr app-month-view  [title]="'Income'" [month] = "model.income" ></tr>
-  <tr app-month-view  [title]="'Cumulative Income'" [month] = "model.cumulativeIncome" ></tr>
-  <tr app-month-view  [title]="'Cost'" [month] = "model.expense" ></tr>
-  <tr app-month-view  [title]="'Cumulative Cost'" [month] = "model.cumulativeCost" ></tr>
+  <tr app-month-view  [title]="'Income'" [month] = "model.income" style="background-color: lightgray;"></tr>
+  <tr app-month-view  [title]="'Cumulative Income'" [month] = "model.cumulativeIncome" style="background-color: lightgray;"></tr>
+  <tr app-month-view  [title]="'Cost'" [month] = "model.expense" style="background-color: lightgray;"></tr>
+  <tr app-month-view  [title]="'Cumulative Cost'" [month] = "model.cumulativeCost" style="background-color: lightgray;"></tr>
   <tr style="font-weight: bold;" app-month-view  [title]="'Result'" [month] = "model.result" ></tr>
 
   <!--Reconciliation -->
@@ -26,7 +26,7 @@
   <tr>
       <th [rowSpan]="model.incomeCashFlowLogsData.length  + 1" style="text-align: center;">Income</th>
   </tr>
-  <tr style="font-weight: bold;" *ngFor="let log of model.incomeCashFlowLogsData">
+  <tr style="background-color: #FFF2CD;" *ngFor="let log of model.incomeCashFlowLogsData">
     <td>
         {{log.typeName}}
     </td>
@@ -72,7 +72,7 @@
       <th [rowSpan]="model.expenseCashFlowLogsData.length +1" style="text-align: center;">Expense</th>
     </tr>
 
-    <tr style="font-weight: bold;" *ngFor="let log of model.expenseCashFlowLogsData">
+    <tr style="background-color: #FFF2CD;" *ngFor="let log of model.expenseCashFlowLogsData">
       <td>
           {{log.typeName}}
       </td>
@@ -114,6 +114,12 @@
            <input type="text" class="form-control square form-control-sm" name="log.month.dec"
           [(ngModel)]="log.month.dec" #name="ngModel" required></td>
     </tr>
+
+
+    <tr style="font-weight: bold;" app-month-view  [title]="'Reconcilition Result'" [month] = "model.reconciliationResult" ></tr>
+    <tr  app-month-view  [title]="'Final Result'" [month] = "model.finalResult" ></tr>
+    <tr style="font-weight: bold;" app-month-view  [title]="'Cumulative Final Result Result'" [month] = "model.cumulativeFinalResult" ></tr>
+
 
   </tbody>
 </table>

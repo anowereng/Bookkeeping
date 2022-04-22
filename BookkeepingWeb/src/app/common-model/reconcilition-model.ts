@@ -11,8 +11,11 @@ export class ReconciliationViewModel implements IReconciliationViewModel {
      cumulativeIncome : MonthValueViewModel;
      cumulativeCost : MonthValueViewModel;
      result : MonthValueViewModel;
-     incomeCashFlowLogsData : CashFlowLogsViewModel[]
-     expenseCashFlowLogsData : CashFlowLogsViewModel[]
+     incomeCashFlowLogsData : CashFlowLogsViewModel[];
+     expenseCashFlowLogsData : CashFlowLogsViewModel[];
+     reconciliationResult : MonthValueViewModel;
+     finalResult : MonthValueViewModel;
+     cumulativeFinalResult : MonthValueViewModel;
 
   constructor() {
       this.income =  new MonthValueViewModel;
@@ -22,6 +25,9 @@ export class ReconciliationViewModel implements IReconciliationViewModel {
       this.result =  new MonthValueViewModel;
       this.incomeCashFlowLogsData =   [];
       this.expenseCashFlowLogsData =   [];
+      this.reconciliationResult =  new MonthValueViewModel;
+      this.finalResult =  new MonthValueViewModel;
+      this.cumulativeFinalResult =  new MonthValueViewModel;
   }
 }
 
