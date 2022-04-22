@@ -9,6 +9,8 @@ namespace Bookkeeping.API.Services
     {
         Task<ApiResponse> GetData(ReconciliationRequestModel input);
         Task<ApiResponse> AddUpdateCashFlowLog(List<AddUpdateCashFlowLogModel> models);
+       
+
 
     }
 }
