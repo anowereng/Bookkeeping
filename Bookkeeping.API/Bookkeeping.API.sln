@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookkeeping.API", "Bookkeeping.API\Bookkeeping.API.csproj", "{59FF6F25-F603-439E-8BDC-25BEAFAA536F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookkeeping.Services", "Bookkeeping.Services\Bookkeeping.Services.csproj", "{E972E339-3705-4920-BE2E-5296EF5A411B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{59FF6F25-F603-439E-8BDC-25BEAFAA536F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59FF6F25-F603-439E-8BDC-25BEAFAA536F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59FF6F25-F603-439E-8BDC-25BEAFAA536F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59FF6F25-F603-439E-8BDC-25BEAFAA536F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E972E339-3705-4920-BE2E-5296EF5A411B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E972E339-3705-4920-BE2E-5296EF5A411B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E972E339-3705-4920-BE2E-5296EF5A411B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E972E339-3705-4920-BE2E-5296EF5A411B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {39A2ABB8-7B46-4A9C-94C2-42A9B0E5A82E}
+	EndGlobalSection
+EndGlobal

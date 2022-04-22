@@ -1,0 +1,126 @@
+
+<table class="table table-sm" [border]="1">
+  <thead>
+    <tr>
+      <th [colSpan]="14" style="text-align: center;">Year 2019</th>
+    </tr>
+    <tr app-month-name></tr>
+  </thead>
+
+  <tr *ngIf="model.incomeCashFlowLogsData.length === 0">
+    <th [colSpan]="14" style="text-align: center;color: grey;"><small>Unable to load data</small></th>
+ </tr>
+
+  <tbody *ngIf="model.incomeCashFlowLogsData.length !== 0">
+  <tr app-month-view  [title]="'Income'" [month] = "model.income" ></tr>
+  <tr app-month-view  [title]="'Cumulative Income'" [month] = "model.cumulativeIncome" ></tr>
+  <tr app-month-view  [title]="'Cost'" [month] = "model.expense" ></tr>
+  <tr app-month-view  [title]="'Cumulative Cost'" [month] = "model.cumulativeCost" ></tr>
+  <tr style="font-weight: bold;" app-month-view  [title]="'Result'" [month] = "model.result" ></tr>
+
+  <!--Reconciliation -->
+  <tr>
+      <th [colSpan]="14" style="text-align: center;">Reconciliation</th>
+  </tr>
+
+  <tr>
+      <th [rowSpan]="model.incomeCashFlowLogsData.length  + 1" style="text-align: center;">Income</th>
+  </tr>
+  <tr style="font-weight: bold;" *ngFor="let log of model.incomeCashFlowLogsData">
+    <td>
+        {{log.typeName}}
+    </td>
+      <td>
+        <input type="text" class="form-control square form-control-sm" name="log.month.jan"
+        [(ngModel)]="log.month.jan" #name="ngModel" required>
+      </td>
+      <td>
+        <input type="text" class="form-control square form-control-sm" name="log.month.feb"
+        [(ngModel)]="log.month.feb" #name="ngModel" required> </td>
+      <td>
+         <input type="text" class="form-control square form-control-sm" name="log.month.jan"
+        [(ngModel)]="log.month.mar" #name="ngModel" required></td>
+      <td>
+         <input type="text" class="form-control square form-control-sm" name="log.month.mar"
+        [(ngModel)]="log.month.apr" #name="ngModel" required></td>
+      <td>
+         <input type="text" class="form-control square form-control-sm" name="log.month.may"
+        [(ngModel)]="log.month.may" #name="ngModel" required></td>
+      <td>
+         <input type="text" class="form-control square form-control-sm" name="log.month.jun"
+        [(ngModel)]="log.month.jun" #name="ngModel" required></td>
+      <td>
+        <input type="text" class="form-control square form-control-sm" name="log.month.jul"
+        [(ngModel)]="log.month.jul" #name="ngModel" required></td>
+      <td>
+         <input type="text" class="form-control square form-control-sm" name="log.month.aug"
+        [(ngModel)]="log.month.aug" #name="ngModel" required></td>
+      <td>
+         <input type="text" class="form-control square form-control-sm" name="log.month.sep"
+        [(ngModel)]="log.month.sep" #name="ngModel" required></td>
+      <td>
+        <input type="text" class="form-control square form-control-sm" name="log.month.oct"
+        [(ngModel)]="log.month.oct" #name="ngModel" required></td>
+      <td>
+        <input type="text" class="form-control square form-control-sm" name="log.month.nov"
+        [(ngModel)]="log.month.nov" #name="ngModel" required></td>
+      <td>
+         <input type="text" class="form-control square form-control-sm" name="log.month.dec"
+        [(ngModel)]="log.month.dec" #name="ngModel" required></td>
+  </tr>
+    <tr>
+      <th [rowSpan]="model.expenseCashFlowLogsData.length +1" style="text-align: center;">Expense</th>
+    </tr>
+
+    <tr style="font-weight: bold;" *ngFor="let log of model.expenseCashFlowLogsData">
+      <td>
+          {{log.typeName}}
+      </td>
+        <td>
+          <input type="text" class="form-control square form-control-sm" name="log.month.jan"
+          [(ngModel)]="log.month.jan" #name="ngModel" required>
+        </td>
+        <td>
+          <input type="text" class="form-control square form-control-sm" name="log.month.feb"
+          [(ngModel)]="log.month.feb" #name="ngModel" required> </td>
+        <td>
+           <input type="text" class="form-control square form-control-sm" name="log.month.jan"
+          [(ngModel)]="log.month.mar" #name="ngModel" required></td>
+        <td>
+           <input type="text" class="form-control square form-control-sm" name="log.month.mar"
+          [(ngModel)]="log.month.apr" #name="ngModel" required></td>
+        <td>
+           <input type="text" class="form-control square form-control-sm" name="log.month.may"
+          [(ngModel)]="log.month.may" #name="ngModel" required></td>
+        <td>
+           <input type="text" class="form-control square form-control-sm" name="log.month.jun"
+          [(ngModel)]="log.month.jun" #name="ngModel" required></td>
+        <td>
+          <input type="text" class="form-control square form-control-sm" name="log.month.jul"
+          [(ngModel)]="log.month.jul" #name="ngModel" required></td>
+        <td>
+           <input type="text" class="form-control square form-control-sm" name="log.month.aug"
+          [(ngModel)]="log.month.aug" #name="ngModel" required></td>
+        <td>
+           <input type="text" class="form-control square form-control-sm" name="log.month.sep"
+          [(ngModel)]="log.month.sep" #name="ngModel" required></td>
+        <td>
+          <input type="text" class="form-control square form-control-sm" name="log.month.oct"
+          [(ngModel)]="log.month.oct" #name="ngModel" required></td>
+        <td>
+          <input type="text" class="form-control square form-control-sm" name="log.month.nov"
+          [(ngModel)]="log.month.nov" #name="ngModel" required></td>
+        <td>
+           <input type="text" class="form-control square form-control-sm" name="log.month.dec"
+          [(ngModel)]="log.month.dec" #name="ngModel" required></td>
+    </tr>
+
+  </tbody>
+</table>
+<div class="row">
+  <div class="col-12">
+    <input type="button" class="btn btn-success" (click)="saveOrUpdate()" [disabled]="!isBtnEnabled" value="Submit" style="float: right;">
+  </div>
+</div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+
