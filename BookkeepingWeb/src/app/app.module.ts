@@ -15,7 +15,7 @@ import { MonthViewComponent } from './shared/month-view/month-view.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from 'ngx-toastr';
 import { NgxLoadingModule } from 'ngx-loading';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     NgxLoadingModule.forRoot({}),
     BsDatepickerModule.forRoot()
   ],
-  providers: [WebApiService],
+  providers: [WebApiService, BsDatepickerConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

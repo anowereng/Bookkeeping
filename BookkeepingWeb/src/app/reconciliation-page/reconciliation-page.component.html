@@ -1,131 +1,424 @@
+<label>Choose Year</label>
+<div class="row mb-3">
+  <div class="col-sm-3">
+    <div class="form-group">
+      <label>From</label>
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control pickadate-selectors"
+          name="filterStartDate"
+          [(ngModel)]="fromYear"
+          (ngModelChange)="getReconcilition()"
+          bsDatepicker
+          [bsConfig]="{ dateInputFormat: 'YYYY' }"/>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="form-group">
+      <label>To</label>
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control pickadate-selectors"
+          name="filterStartDate"
+          [(ngModel)]="toYear"
+          bsDatepicker
+          (ngModelChange)="getReconcilition()"
+          [bsConfig]="{ dateInputFormat: 'YYYY' }"/>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-sm-3">
+    <div class="form-group">
+     <input type="button" class="btn btn-default" value="Load" (click)="getReconcilition()">
+    </div>
+  </div> -->
+</div>
+
 
 <table class="table table-sm" [border]="1">
   <thead>
     <tr>
-      <th [colSpan]="14" style="text-align: center;">Year 2019</th>
+      <th [colSpan]="14" style="text-align: center">Year 2019</th>
     </tr>
     <tr app-month-name></tr>
   </thead>
 
   <tr *ngIf="model.incomeCashFlowLogsData.length === 0">
-    <th [colSpan]="14" style="text-align: center;color: #D9D9D9;"><small>Unable to load data</small></th>
- </tr>
+    <th [colSpan]="14" style="text-align: center; color: #d9d9d9">
+      <small>Unable to load data</small>
+    </th>
+  </tr>
 
   <tbody *ngIf="model.incomeCashFlowLogsData.length !== 0">
-  <tr app-month-view  [title]="'Income'" [month] = "model.income" style="background-color: lightgray;"></tr>
-  <tr app-month-view  [title]="'Cumulative Income'" [month] = "model.cumulativeIncome" style="background-color: lightgray;"></tr>
-  <tr app-month-view  [title]="'Cost'" [month] = "model.expense" style="background-color: lightgray;"></tr>
-  <tr app-month-view  [title]="'Cumulative Cost'" [month] = "model.cumulativeCost" style="background-color: lightgray;"></tr>
-  <tr style="font-weight: bold;" app-month-view  [title]="'Result'" [month] = "model.result" ></tr>
+    <tr
+      app-month-view
+      [title]="'Income'"
+      [month]="model.income"
+      style="background-color: lightgray"
+    ></tr>
+    <tr
+      app-month-view
+      [title]="'Cumulative Income'"
+      [month]="model.cumulativeIncome"
+      style="background-color: lightgray"
+    ></tr>
+    <tr
+      app-month-view
+      [title]="'Cost'"
+      [month]="model.expense"
+      style="background-color: lightgray"
+    ></tr>
+    <tr
+      app-month-view
+      [title]="'Cumulative Cost'"
+      [month]="model.cumulativeCost"
+      style="background-color: lightgray"
+    ></tr>
+    <tr
+      style="font-weight: bold"
+      app-month-view
+      [title]="'Result'"
+      [month]="model.result"
+    ></tr>
 
-  <!--Reconciliation -->
-  <tr>
-      <th [colSpan]="14" style="text-align: center;">Reconciliation</th>
-  </tr>
-
-  <tr>
-      <th [rowSpan]="model.incomeCashFlowLogsData.length  + 1" style="text-align: center;">Income</th>
-  </tr>
-  <tr style="background-color: #FFF2CD;" *ngFor="let log of model.incomeCashFlowLogsData">
-    <td>
-        {{log.typeName}}
-    </td>
-      <td>
-        <input type="text" class="form-control square form-control-sm" name="log.month.jan" (blur)="updateReconcilitionResult('jan')"
-        [(ngModel)]="log.month.jan" #name="ngModel" required>
-      </td>
-      <td>
-        <input type="text" class="form-control square form-control-sm" name="log.month.feb" (blur)="updateReconcilitionResult('feb')"
-        [(ngModel)]="log.month.feb" #name="ngModel" required> </td>
-      <td>
-         <input type="text" class="form-control square form-control-sm" name="log.month.mar" (blur)="updateReconcilitionResult('mar')"
-        [(ngModel)]="log.month.mar" #name="ngModel" required></td>
-      <td>
-         <input type="text" class="form-control square form-control-sm" name="log.month.apr" (blur)="updateReconcilitionResult('apr')"
-        [(ngModel)]="log.month.apr" #name="ngModel" required></td>
-      <td>
-         <input type="text" class="form-control square form-control-sm" name="log.month.may" (blur)="updateReconcilitionResult('may')"
-        [(ngModel)]="log.month.may" #name="ngModel" required></td>
-      <td>
-         <input type="text" class="form-control square form-control-sm" name="log.month.jun" (blur)="updateReconcilitionResult('jun')"
-        [(ngModel)]="log.month.jun" #name="ngModel" required></td>
-      <td>
-        <input type="text" class="form-control square form-control-sm" name="log.month.jul" (blur)="updateReconcilitionResult('jul')"
-        [(ngModel)]="log.month.jul" #name="ngModel" required></td>
-      <td>
-         <input type="text" class="form-control square form-control-sm" name="log.month.aug" (blur)="updateReconcilitionResult('aug')"
-        [(ngModel)]="log.month.aug" #name="ngModel" required></td>
-      <td>
-         <input type="text" class="form-control square form-control-sm" name="log.month.sep" (blur)="updateReconcilitionResult('sep')"
-        [(ngModel)]="log.month.sep" #name="ngModel" required></td>
-      <td>
-        <input type="text" class="form-control square form-control-sm" name="log.month.oct" (blur)="updateReconcilitionResult('oct')"
-        [(ngModel)]="log.month.oct" #name="ngModel" required></td>
-      <td>
-        <input type="text" class="form-control square form-control-sm" name="log.month.nov" (blur)="updateReconcilitionResult('nov')"
-        [(ngModel)]="log.month.nov" #name="ngModel" required></td>
-      <td>
-         <input type="text" class="form-control square form-control-sm" name="log.month.dec" (blur)="updateReconcilitionResult('dec')"
-        [(ngModel)]="log.month.dec" #name="ngModel" required></td>
-  </tr>
+    <!--Reconciliation -->
     <tr>
-      <th [rowSpan]="model.expenseCashFlowLogsData.length +1" style="text-align: center;">Expense</th>
+      <th [colSpan]="14" style="text-align: center">Reconciliation</th>
     </tr>
 
-    <tr style="background-color: #FFF2CD;" *ngFor="let log of model.expenseCashFlowLogsData">
+    <tr>
+      <th
+        [rowSpan]="model.incomeCashFlowLogsData.length + 1"
+        style="text-align: center"
+      >
+        Income
+      </th>
+    </tr>
+    <tr
+      style="background-color: #fff2cd"
+      *ngFor="let log of model.incomeCashFlowLogsData"
+    >
       <td>
-          {{log.typeName}}
+        {{ log.typeName }}
       </td>
-        <td>
-          <input type="text" class="form-control square form-control-sm" name="log.month.jan" (blur)="updateReconcilitionResult('jan')"
-          [(ngModel)]="log.month.jan" #name="ngModel" required>
-        </td>
-        <td>
-          <input type="text" class="form-control square form-control-sm" name="log.month.feb" (blur)="updateReconcilitionResult('feb')"
-          [(ngModel)]="log.month.feb" #name="ngModel" required> </td>
-        <td>
-           <input type="text" class="form-control square form-control-sm" name="log.month.mar" (blur)="updateReconcilitionResult('mar')"
-          [(ngModel)]="log.month.mar" #name="ngModel" required></td>
-        <td>
-           <input type="text" class="form-control square form-control-sm" name="log.month.apr" (blur)="updateReconcilitionResult('apr')"
-          [(ngModel)]="log.month.apr" #name="ngModel" required></td>
-        <td>
-           <input type="text" class="form-control square form-control-sm" name="log.month.may" (blur)="updateReconcilitionResult('may')"
-          [(ngModel)]="log.month.may" #name="ngModel" required></td>
-        <td>
-           <input type="text" class="form-control square form-control-sm" name="log.month.jun" (blur)="updateReconcilitionResult('jun')"
-          [(ngModel)]="log.month.jun" #name="ngModel" required></td>
-        <td>
-          <input type="text" class="form-control square form-control-sm" name="log.month.jul" (blur)="updateReconcilitionResult('jul')"
-          [(ngModel)]="log.month.jul" #name="ngModel" required></td>
-        <td>
-           <input type="text" class="form-control square form-control-sm" name="log.month.aug" (blur)="updateReconcilitionResult('aug')"
-          [(ngModel)]="log.month.aug" #name="ngModel" required></td>
-        <td>
-           <input type="text" class="form-control square form-control-sm" name="log.month.sep" (blur)="updateReconcilitionResult('sep')"
-          [(ngModel)]="log.month.sep" #name="ngModel" required></td>
-        <td>
-          <input type="text" class="form-control square form-control-sm" name="log.month.oct" (blur)="updateReconcilitionResult('oct')"
-          [(ngModel)]="log.month.oct" #name="ngModel" required></td>
-        <td>
-          <input type="text" class="form-control square form-control-sm" name="log.month.nov" (blur)="updateReconcilitionResult('nov')"
-          [(ngModel)]="log.month.nov" #name="ngModel" required></td>
-        <td>
-           <input type="text" class="form-control square form-control-sm" name="log.month.dec" (blur)="updateReconcilitionResult('dec')"
-          [(ngModel)]="log.month.dec" #name="ngModel" required></td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.jan"
+          (blur)="updateReconcilitionResult('jan')"
+          [(ngModel)]="log.month.jan"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.feb"
+          (blur)="updateReconcilitionResult('feb')"
+          [(ngModel)]="log.month.feb"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.mar"
+          (blur)="updateReconcilitionResult('mar')"
+          [(ngModel)]="log.month.mar"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.apr"
+          (blur)="updateReconcilitionResult('apr')"
+          [(ngModel)]="log.month.apr"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.may"
+          (blur)="updateReconcilitionResult('may')"
+          [(ngModel)]="log.month.may"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.jun"
+          (blur)="updateReconcilitionResult('jun')"
+          [(ngModel)]="log.month.jun"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.jul"
+          (blur)="updateReconcilitionResult('jul')"
+          [(ngModel)]="log.month.jul"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.aug"
+          (blur)="updateReconcilitionResult('aug')"
+          [(ngModel)]="log.month.aug"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.sep"
+          (blur)="updateReconcilitionResult('sep')"
+          [(ngModel)]="log.month.sep"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.oct"
+          (blur)="updateReconcilitionResult('oct')"
+          [(ngModel)]="log.month.oct"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.nov"
+          (blur)="updateReconcilitionResult('nov')"
+          [(ngModel)]="log.month.nov"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.dec"
+          (blur)="updateReconcilitionResult('dec')"
+          [(ngModel)]="log.month.dec"
+          #name="ngModel"
+          required
+        />
+      </td>
+    </tr>
+    <tr>
+      <th
+        [rowSpan]="model.expenseCashFlowLogsData.length + 1"
+        style="text-align: center"
+      >
+        Expense
+      </th>
     </tr>
 
+    <tr
+      style="background-color: #fff2cd"
+      *ngFor="let log of model.expenseCashFlowLogsData"
+    >
+      <td>
+        {{ log.typeName }}
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.jan"
+          (blur)="updateReconcilitionResult('jan')"
+          [(ngModel)]="log.month.jan"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.feb"
+          (blur)="updateReconcilitionResult('feb')"
+          [(ngModel)]="log.month.feb"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.mar"
+          (blur)="updateReconcilitionResult('mar')"
+          [(ngModel)]="log.month.mar"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.apr"
+          (blur)="updateReconcilitionResult('apr')"
+          [(ngModel)]="log.month.apr"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.may"
+          (blur)="updateReconcilitionResult('may')"
+          [(ngModel)]="log.month.may"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.jun"
+          (blur)="updateReconcilitionResult('jun')"
+          [(ngModel)]="log.month.jun"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.jul"
+          (blur)="updateReconcilitionResult('jul')"
+          [(ngModel)]="log.month.jul"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.aug"
+          (blur)="updateReconcilitionResult('aug')"
+          [(ngModel)]="log.month.aug"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.sep"
+          (blur)="updateReconcilitionResult('sep')"
+          [(ngModel)]="log.month.sep"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.oct"
+          (blur)="updateReconcilitionResult('oct')"
+          [(ngModel)]="log.month.oct"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.nov"
+          (blur)="updateReconcilitionResult('nov')"
+          [(ngModel)]="log.month.nov"
+          #name="ngModel"
+          required
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control square form-control-sm"
+          name="log.month.dec"
+          (blur)="updateReconcilitionResult('dec')"
+          [(ngModel)]="log.month.dec"
+          #name="ngModel"
+          required
+        />
+      </td>
+    </tr>
 
-    <tr style="font-weight: bold;" app-month-view  [title]="'Reconcilition Result'" [month] = "model.reconciliationResult" ></tr>
-    <tr  app-month-view  [title]="'Final Result'" [month] = "model.finalResult" ></tr>
-    <tr style="font-weight: bold;" app-month-view  [title]="'Cumulative Final Result Result'" [month] = "model.cumulativeFinalResult" ></tr>
-
+    <tr
+      style="font-weight: bold"
+      app-month-view
+      [title]="'Reconcilition Result'"
+      [month]="model.reconciliationResult"
+    ></tr>
+    <tr
+      app-month-view
+      [title]="'Final Result'"
+      [month]="model.finalResult"
+    ></tr>
+    <tr
+      style="font-weight: bold"
+      app-month-view
+      [title]="'Cumulative Final Result Result'"
+      [month]="model.cumulativeFinalResult"
+    ></tr>
   </tbody>
 </table>
 <div class="row">
   <div class="col-12">
-    <input type="button" class="btn btn-success" (click)="saveOrUpdate()" [disabled]="!isBtnEnabled" value="Submit" style="float: right;">
+    <input
+      type="button"
+      class="btn btn-success"
+      (click)="saveOrUpdate()"
+      [disabled]="!isBtnEnabled"
+      value="Submit"
+      style="float: right"
+    />
   </div>
 </div>
-<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
-
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>

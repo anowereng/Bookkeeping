@@ -6,6 +6,7 @@ import { ReconciliationViewModel, CashFlowLogsViewModel, MonthValueViewModel } f
 import { ReconcilitionRequestModel } from '../common-model/request-model';
 import { AddUpdateCashFlowLogModel } from '../common-model/save-update-reconcilition-model';
 import { ToastrService } from 'ngx-toastr';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-reconciliation-page',
@@ -19,7 +20,8 @@ export class ReconciliationPageComponent implements OnInit {
   model:ReconciliationViewModel;
   public loading = false;
   public isBtnEnabled = true;
-
+  fromYear:string =  "2019";
+  toYear:string =  "2020";
   constructor(private service: WebApiService, private toastr: ToastrService) {
     this.model = new ReconciliationViewModel();
    }
@@ -29,9 +31,10 @@ export class ReconciliationPageComponent implements OnInit {
   }
 
   getReconcilition(){
+    debugger;
     this.loading =  true;
     var model = this.getNewModel();
-
+    model.year = moment(this.fromYear).format('YYYY');
     const successCallback = (response: ResponseModel): void => {
       this.model = response.result as ReconciliationViewModel;
       this.loading =  false;
@@ -42,8 +45,6 @@ export class ReconciliationPageComponent implements OnInit {
       this.loading =  false;
       this.toastr.error("Error")
     };
-
-    model.year = "2019";
 
     this.service.get(UrlService.reconcialation, model).subscribe( response =>{
       successCallback(response)
@@ -82,7 +83,6 @@ export class ReconciliationPageComponent implements OnInit {
   expenseCashflowLogsToAddUpdateCashLog() {
 
     for (let index = 0; index < this.model.expenseCashFlowLogsData.length; index++) {
-
       const element = this.model.expenseCashFlowLogsData[index];
 
       Object.keys(element.month)
@@ -109,7 +109,6 @@ export class ReconciliationPageComponent implements OnInit {
   }
 
   updateReconcilitionResult(monthname: any){
-    debugger;
     this.addUpdateCashFlowLogs = [];
     this.incomeCashflowLogsToAddUpdateCashLog();
     var incomeMonthvalue =  this.addUpdateCashFlowLogs.filter(x=>x.month == monthname).reduce((sum, current) => +sum  + +current.amount, 0);
