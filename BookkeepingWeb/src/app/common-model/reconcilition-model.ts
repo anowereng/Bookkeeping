@@ -25,7 +25,7 @@ export class ReconciliationViewModel implements IReconciliationViewModel {
       this.result =  new MonthValueViewModel;
       this.incomeCashFlowLogsData =   [];
       this.expenseCashFlowLogsData =   [];
-      this.reconciliationResult =  new MonthValueViewModel;
+      this.reconciliationResult=  new MonthValueViewModel;
       this.finalResult =  new MonthValueViewModel;
       this.cumulativeFinalResult =  new MonthValueViewModel;
   }

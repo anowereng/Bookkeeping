@@ -44,3 +44,19 @@ INSERT [dbo].[YearMonthIncomeExpenses] ([Id], [Month], [Year], [CashFlowId], [Am
 INSERT [dbo].[YearMonthIncomeExpenses] ([Id], [Month], [Year], [CashFlowId], [Amount]) VALUES (27, N'Nov', N'2019', 4, 0)
 SET IDENTITY_INSERT [dbo].[YearMonthIncomeExpenses] OFF
 
+SET IDENTITY_INSERT [dbo].[CashFlowLogs] ON 
+
+INSERT [dbo].[CashFlowLogs] ([Id], [CashFlowTypeId], [Amount], [Month], [Year]) VALUES (1, 1, 1200, N'jan', N'2019')
+INSERT [dbo].[CashFlowLogs] ([Id], [CashFlowTypeId], [Amount], [Month], [Year]) VALUES (2, 1, 52, N'apr', N'2019')
+INSERT [dbo].[CashFlowLogs] ([Id], [CashFlowTypeId], [Amount], [Month], [Year]) VALUES (3, 2, 251, N'jan', N'2019')
+INSERT [dbo].[CashFlowLogs] ([Id], [CashFlowTypeId], [Amount], [Month], [Year]) VALUES (4, 2, 152, N'mar', N'2019')
+INSERT [dbo].[CashFlowLogs] ([Id], [CashFlowTypeId], [Amount], [Month], [Year]) VALUES (5, 2, 522, N'may', N'2019')
+INSERT [dbo].[CashFlowLogs] ([Id], [CashFlowTypeId], [Amount], [Month], [Year]) VALUES (6, 3, 225, N'apr', N'2019')
+INSERT [dbo].[CashFlowLogs] ([Id], [CashFlowTypeId], [Amount], [Month], [Year]) VALUES (7, 4, 300, N'apr', N'2019')
+INSERT [dbo].[CashFlowLogs] ([Id], [CashFlowTypeId], [Amount], [Month], [Year]) VALUES (8, 4, 100, N'aug', N'2019')
+INSERT [dbo].[CashFlowLogs] ([Id], [CashFlowTypeId], [Amount], [Month], [Year]) VALUES (9, 5, 200, N'jan', N'2019')
+INSERT [dbo].[CashFlowLogs] ([Id], [CashFlowTypeId], [Amount], [Month], [Year]) VALUES (10, 5, 500, N'jun', N'2019')
+INSERT [dbo].[CashFlowLogs] ([Id], [CashFlowTypeId], [Amount], [Month], [Year]) VALUES (11, 7, 250, N'mar', N'2019')
+SET IDENTITY_INSERT [dbo].[CashFlowLogs] OFF
+
+

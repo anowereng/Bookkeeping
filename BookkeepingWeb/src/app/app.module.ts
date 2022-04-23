@@ -15,7 +15,7 @@ import { MonthViewComponent } from './shared/month-view/month-view.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from 'ngx-toastr';
 import { NgxLoadingModule } from 'ngx-loading';
-
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { NgxLoadingModule } from 'ngx-loading';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    NgxLoadingModule.forRoot({})
+    NgxLoadingModule.forRoot({}),
+    BsDatepickerModule.forRoot()
   ],
   providers: [WebApiService],
   bootstrap: [AppComponent]

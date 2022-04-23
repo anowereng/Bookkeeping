@@ -64,7 +64,7 @@ namespace Bookkeeping.API.Services
             }
             return model;
         }
-  
+
         public MonthValueViewModel CumulativeProcess(MonthValueViewModel viewModel)
         {
             var cumViewModel = new MonthValueViewModel();
@@ -191,7 +191,7 @@ namespace Bookkeeping.API.Services
 
         public async Task<MonthValueViewModel> GetIncomeAmount(ReconciliationRequestModel input)
         {
-            var incomeModel = await _context.CashFlows.SingleOrDefaultAsync(x => x.Name == "Income");
+            var incomeModel = await GetIncomeModel();
 
             var incomeMonthViewModels = await _context.YearMonthIncomeExpenses.Where(x => x.CashFlowId == incomeModel.Id && x.Year == input.Year).ToListAsync();
             var list = incomeMonthViewModels.GroupBy(x => new { x.Month, x.Amount })
@@ -212,9 +212,6 @@ namespace Bookkeeping.API.Services
 
         public async Task<MonthValueViewModel> GetReconciliationResult(ReconciliationRequestModel input)
         {
-
-            var incomeModel = await _context.CashFlows.SingleOrDefaultAsync(x => x.Name == "Income");
-
             var incomeMonthViewModels = await _context.CashFlowLogs.Include(x => x.CashFlowType).ThenInclude(y => y.CashFlow)
                                                       .Where(x => x.Year == input.Year)
                                                       .ToListAsync();
@@ -231,6 +228,9 @@ namespace Bookkeeping.API.Services
 
             return result;
         }
+
+
+
         public async Task<MonthValueViewModel> GetExpenseAmount(ReconciliationRequestModel input)
         {
             var expenseModel = await _context.CashFlows.SingleOrDefaultAsync(x => x.Name == "Expense");
@@ -254,7 +254,7 @@ namespace Bookkeeping.API.Services
 
         public async Task<List<CashFlowLogsViewModel>> GetIncomeCashFlowTypesData(ReconciliationRequestModel input)
         {
-            var incomeModel = await _context.CashFlows.SingleOrDefaultAsync(x => x.Name == "Income");
+            var incomeModel = await GetIncomeModel();
 
             var cashFlowLogs = await _context.CashFlowLogs.Include(x => x.CashFlowType).ThenInclude(y => y.CashFlow).
                                                                     Where(x => x.CashFlowType.CashFlow.Id == incomeModel.Id && x.Year == input.Year)
@@ -266,10 +266,11 @@ namespace Bookkeeping.API.Services
 
         public async Task<List<CashFlowLogsViewModel>> GetExpenseCashFlowTypesData(ReconciliationRequestModel input)
         {
-            var expenseModel = await _context.CashFlows.SingleOrDefaultAsync(x => x.Name == "Expense");
+            var expenseModel = await GetExpenseModel();
 
             var cashFlowLogs = await _context.CashFlowLogs.Include(x => x.CashFlowType).ThenInclude(y => y.CashFlow).
                                                                     Where(x => x.CashFlowType.CashFlow.Id == expenseModel.Id && x.Year == input.Year)
+                                                                    .OrderBy(x => x.CashFlowType)
                                                                     .ToListAsync();
 
             var cashFlowLogsVewModel = CashFlowLogsToViewModel(cashFlowLogs);
@@ -279,25 +280,34 @@ namespace Bookkeeping.API.Services
 
         public MonthValueViewModel GetFinalResult(MonthValueViewModel recResult, MonthValueViewModel result)
         {
+            var finalResult = new MonthValueViewModel();
+            finalResult.Jan = recResult.Jan + result.Jan;
+            finalResult.Feb = recResult.Feb + result.Feb;
+            finalResult.Mar = recResult.Mar + result.Mar;
+            finalResult.Apr = recResult.Apr + result.Apr;
+            finalResult.May = recResult.May + result.May;
+            finalResult.Jun = recResult.Jun + result.Jun;
+            finalResult.Jul = recResult.Jul + result.Jul;
+            finalResult.Aug = recResult.Aug + result.Aug;
+            finalResult.Sep = recResult.Sep + result.Sep;
+            finalResult.Oct = recResult.Oct + result.Oct;
+            finalResult.Nov = recResult.Nov + result.Nov;
+            finalResult.Dec = recResult.Dec + result.Dec;
 
-            recResult.Jan += result.Jan;
-            recResult.Feb += result.Feb;
-            recResult.Mar += result.Mar;
-            recResult.Apr += result.Apr;
-            recResult.May += result.May;
-            recResult.Jun += result.Jun;
-            recResult.Jul += result.Jul;
-            recResult.Aug += result.Aug;
-            recResult.Sep += result.Sep;
-            recResult.Oct += result.Oct;
-            recResult.Nov += result.Nov;
-            recResult.Dec += result.Dec;
-
-            return recResult;
+            return finalResult;
 
         }
 
-
+        private async Task<CashFlow> GetIncomeModel()
+        {
+            var model = await _context.CashFlows.SingleOrDefaultAsync(x => x.Name == "Income");
+            return model;
+        }
+        private async Task<CashFlow> GetExpenseModel()
+        {
+            var model  = await _context.CashFlows.SingleOrDefaultAsync(x => x.Name == "Expense");
+            return model;
+        }
 
     }
 }

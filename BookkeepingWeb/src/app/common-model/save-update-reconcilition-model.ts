@@ -3,8 +3,8 @@ export class AddUpdateCashFlowLogModel {
     typeId : number
     cashFlowId : number
     year: string
-    month?: string
-    amount?: number
+    month: string
+    amount: number
     constructor(){
       this.logId =  0;
       this.typeId =  0;
