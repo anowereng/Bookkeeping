@@ -9,6 +9,8 @@
 2.In PM console  "update-database"
 ![setup-2](https://user-images.githubusercontent.com/14024760/165029970-f65aa2d2-c62d-491b-b577-19cb9314542e.png)
 
+3. Build and run
+
 
 ### Dashboard 
 
