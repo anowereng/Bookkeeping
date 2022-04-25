@@ -11,6 +11,11 @@
 
 3. Build and run
 
+### Client side (angular)
+
+1. npm install
+
+
 
 ### Dashboard 
 
